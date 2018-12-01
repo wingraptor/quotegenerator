@@ -3,15 +3,12 @@ $(document).ready(function() {
   generator();
   //Set random colors to elements
   colChanger();
-  //fade in text div
-  $("#quote-box").fadeIn(1000);
   //Add event listener
   $("#new-quote").click(function () {
     $("#quote-box").fadeOut(1000, function(){
       generator();
       colChanger();
     });
-    $("#quote-box").fadeIn(1000);
   });
 });
 
@@ -21,14 +18,30 @@ function generator(){
     url: "https://talaikis.com/api/quotes/random/",
     //Note: result is already formatted as Js Object
     success: function(result) {
+      giphy(result.cat);
       $("#text").text(`${result.quote}`);
       $("#author").text(result.author);
-
+      console.log(result.cat);
       //Contruct tweet intent href
       let twQuery = `https://twitter.com/intent/tweet?text="${result.quote}" - ${result.author}`;
-
       //Add href for tweet intent button
       $("#tweet-quote").attr("href", twQuery);
+    }
+  });
+}
+
+// Call API to retrieve GIF from given category
+function giphy(category){
+  $.ajax({
+    url: `http://api.giphy.com/v1/gifs/search?q=${category}&api_key=dZoZrLhDZyEJq50LeQI2OayqqqVL3Yvb`,
+    success: function(result){
+      let random = randomNum(0, 4);
+      //Select random top 5 gif object
+      let gifObj = result.data[random].images.original;
+      //Change dimensions of img element to match incoming gif
+      $("#gif").css({ "height": gifObj.height + "px", width: gifObj.width + "px"}).attr("src", gifObj.url);
+      //fade in text div - so content div only loads when all APIs have been queried
+      $("#quote-box").fadeIn(1000);
     }
   });
 }
@@ -47,6 +60,7 @@ function colChanger(){
 
   $(".color-change").css("color", newHex);
   $(".btn").css("background-color", newHex);
+  $("#gif").css("border-color", newHex);
 }
 
 // Generate random number

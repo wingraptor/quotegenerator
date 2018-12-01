@@ -42,8 +42,17 @@ body {
   margin-top: 5%;
 }
 
+.buttons{
+  margin-bottom: 6.5%;
+}
+
 .btn:focus {
   box-shadow: none;
+}
+
+#gif {
+  border-style: solid;
+  border-radius: 2.5%;
 }
 
 canvas {
