@@ -53,6 +53,7 @@ body {
 #gif {
   border-style: solid;
   border-radius: 2.5%;
+  width: 200px
 }
 
 canvas {

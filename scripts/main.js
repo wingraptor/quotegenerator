@@ -37,9 +37,9 @@ function giphy(category){
     success: function(result){
       let random = randomNum(0, 4);
       //Select random top 5 gif object
-      let gifObj = result.data[random].images.original;
+      let gifObj = result.data[random].images.fixed_width;
       //Change dimensions of img element to match incoming gif
-      $("#gif").css({ "height": gifObj.height + "px", width: gifObj.width + "px"}).attr("src", gifObj.url);
+      $("#gif").css({ "height": gifObj.height + "px"}).attr("src", gifObj.url);
       //fade in text div - so content div only loads when all APIs have been queried
       $("#quote-box").fadeIn(1000);
     }
