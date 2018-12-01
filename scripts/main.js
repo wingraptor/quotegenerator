@@ -33,7 +33,7 @@ function generator(){
 // Call API to retrieve GIF from given category
 function giphy(category){
   $.ajax({
-    url: `http://api.giphy.com/v1/gifs/search?q=${category}&api_key=dZoZrLhDZyEJq50LeQI2OayqqqVL3Yvb`,
+    url: `https://api.giphy.com/v1/gifs/search?q=${category}&api_key=dZoZrLhDZyEJq50LeQI2OayqqqVL3Yvb`,
     success: function(result){
       let random = randomNum(0, 4);
       //Select random top 5 gif object
