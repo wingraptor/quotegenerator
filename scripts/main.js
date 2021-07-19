@@ -5,9 +5,9 @@ $(document).ready(function() {
   colChanger();
   //Add event listener
   $("#new-quote").click(function () {
-    $("#quote-box").fadeOut(1000, function(){
       generator();
       colChanger();
+    $("#quote-box").fadeOut(1000, function(){
     });
   });
 });
@@ -15,15 +15,15 @@ $(document).ready(function() {
 // Call API to retrieve quotes
 function generator(){
   $.ajax({
-    url: "https://talaikis.com/api/quotes/random/",
+    url: "https://quote-garden.herokuapp.com/api/v3/quotes/random",
     //Note: result is already formatted as Js Object
     success: function(result) {
-      giphy(result.cat);
-      $("#text").text(`${result.quote}`);
-      $("#author").text(result.author);
-      console.log(result.cat);
+      result = result.data[0];
+      giphy(result.quoteGenre);
+      $("#text").text(`${result.quoteText}`);
+      $("#author").text(result.quoteAuthor);
       //Contruct tweet intent href
-      let twQuery = `https://twitter.com/intent/tweet?text="${result.quote}" - ${result.author}`;
+      let twQuery = `https://twitter.com/intent/tweet?text="${result.quoteText}" - ${result.quoteAuthor}`;
       //Add href for tweet intent button
       $("#tweet-quote").attr("href", twQuery);
     }
